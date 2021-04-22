@@ -1,29 +1,16 @@
 <script>
   import Todo from "../Todo/Todo.svelte";
-  import { v4 as uuid } from "uuid";
-
-  const todos = [
-    {
-      id: uuid(),
-      title: "Learn SvelteJS",
-      done: false,
-    },
-    {
-      id: uuid(),
-      title: "Learn Javascript",
-      done: true,
-    },
-  ];
+  import { todos } from "../../../../domain/models/todos";
 
   function handleChangeStatus(event) {
-    const idx = todos.findIndex((el) => el.id === event.detail.id);
-    todos[idx].done = !todos[idx].done;
+    const idx = $todos.findIndex((el) => el.id === event.detail.id);
+    $todos[idx].done = !$todos[idx].done;
   }
 </script>
 
 <div class="container">
   <p>LIST OF THINGS TO DO</p>
-  {#each todos as todo (todo.id)}
+  {#each $todos as todo (todo.id)}
     <Todo
       id={todo.id}
       title={todo.title}
